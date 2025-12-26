@@ -1,5 +1,6 @@
 import { mergeSort, prune, validateCallback } from './utils.js';
 import Node from './node.js';
+import Queue from './queue.js';
 
 export default class Tree {
     constructor(array) {
