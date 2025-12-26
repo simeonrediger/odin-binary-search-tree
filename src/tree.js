@@ -44,56 +44,50 @@ export default class Tree {
         }
     }
 
-    deleteItem(value, node = this.root) {
-        let parentNode;
-        let direction;
-        let nodeToDelete;
+    deleteItem(value) {
+        let parent;
+        let node = this.root;
 
-        while (node) {
-            if (value === node.value) {
-                nodeToDelete = node;
-                break;
-            }
-
-            direction = value < node.value ? 'left' : 'right';
-            parentNode = node;
-            node = node[direction];
+        while (node && node.value !== value) {
+            parent = node;
+            node = value < node.value ? node.left : node.right;
         }
 
-        if (!nodeToDelete) {
+        if (!node) {
             return;
         }
 
-        parentNode ??= this.root;
-
-        if (nodeToDelete.left && nodeToDelete.right) {
-            const minSuccessor = this.getMinSuccessor(nodeToDelete);
-            nodeToDelete.value = minSuccessor.node.value;
-            minSuccessor.delete();
-        } else if (nodeToDelete.left) {
-            parentNode[direction] = nodeToDelete.left;
-        } else if (nodeToDelete.right) {
-            parentNode[direction] = nodeToDelete.right;
+        if (node.left && node.right) {
+            const successor = this.#getMinSuccessor(node);
+            node.value = successor.node.value;
+            this.#deleteNode(successor.node, successor.parent);
         } else {
-            parentNode[direction] = null;
+            this.#deleteNode(node, parent);
         }
     }
 
-    getMinSuccessor(node = this.root) {
+    #deleteNode(node, parent) {
+        const child = node.left ?? node.right ?? null;
+
+        if (!parent) {
+            this.root = child;
+        } else if (parent.left === node) {
+            parent.left = child;
+        } else {
+            parent.right = child;
+        }
+    }
+
+    #getMinSuccessor(node = this.root) {
         let parent = node;
-        let direction = 'right';
-        node = parent[direction];
+        node = node.right ?? null;
 
         while (node && node.left) {
             parent = node;
-            direction = 'left';
-            node = node[direction];
+            node = node.left;
         }
 
-        return {
-            node,
-            delete: () => (parent[direction] = null),
-        };
+        return { node, parent };
     }
 
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
