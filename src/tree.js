@@ -1,5 +1,8 @@
+import { mergeSort } from './utils.js';
+
 class Tree {
-    constructor(sortedArray) {
+    constructor(array) {
+        const sortedArray = mergeSort(array);
         this.root = this.build(sortedArray);
     }
 
