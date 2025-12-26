@@ -1,10 +1,9 @@
-import { mergeSort } from './utils.js';
+import { mergeSort, prune } from './utils.js';
 import Node from './node.js';
 
 export default class Tree {
     constructor(array) {
-        const sortedArray = mergeSort(array);
-        this.root = this.build(sortedArray);
+        this.root = this.build(prune(mergeSort(array)));
     }
 
     build(sortedArray, start = 0, end = sortedArray.length) {

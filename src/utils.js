@@ -14,6 +14,18 @@ export function mergeSort(array, start = 0, end = array.length) {
     return merge(left, right);
 }
 
+export function prune(sortedArray) {
+    const prunedArray = [];
+
+    for (let i = 0; i < sortedArray.length; i++) {
+        if (sortedArray[i] !== sortedArray[i - 1]) {
+            prunedArray.push(sortedArray[i]);
+        }
+    }
+
+    return prunedArray;
+}
+
 function merge(left, right) {
     const mergedArray = [];
     let i = 0;
