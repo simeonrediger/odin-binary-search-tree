@@ -20,6 +20,16 @@ export default class Tree {
         );
     }
 
+    find(value) {
+        let node = this.root;
+
+        while (node && node.value !== value) {
+            node = value < node.value ? node.left : node.right;
+        }
+
+        return node ?? null;
+    }
+
     insert(value) {
         let node = this.root;
         let parent;
