@@ -22,25 +22,25 @@ export default class Tree {
 
     insert(value) {
         let node = this.root;
-        let direction;
-        let lastNode;
+        let parent;
 
         while (node) {
-            if (value === node.value) {
+            if (node.value === value) {
                 return;
             }
 
-            direction = value < node.value ? 'left' : 'right';
-            lastNode = node;
-            node = node[direction];
+            parent = node;
+            node = value < node.value ? node.left : node.right;
         }
 
-        const insertedNode = new Node(value);
+        const nodeToInsert = new Node(value);
 
-        if (lastNode) {
-            lastNode[direction] = insertedNode;
+        if (!parent) {
+            this.root = nodeToInsert;
+        } else if (value < parent.value) {
+            parent.left = nodeToInsert;
         } else {
-            this.root = insertedNode;
+            parent.right = nodeToInsert;
         }
     }
 
