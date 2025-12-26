@@ -1,4 +1,5 @@
 import { mergeSort } from './utils.js';
+import Node from './node.js';
 
 export default class Tree {
     constructor(array) {
@@ -7,6 +8,16 @@ export default class Tree {
     }
 
     build(sortedArray, start = 0, end = sortedArray.length) {
-        // TODO
+        if (start >= end) {
+            return null;
+        }
+
+        const mid = Math.floor((start + end) / 2);
+
+        return new Node(
+            sortedArray[mid],
+            this.build(sortedArray, start, mid),
+            this.build(sortedArray, mid + 1, end),
+        );
     }
 }
