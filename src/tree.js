@@ -44,6 +44,58 @@ export default class Tree {
         }
     }
 
+    deleteItem(value, node = this.root) {
+        let parentNode;
+        let direction;
+        let nodeToDelete;
+
+        while (node) {
+            if (value === node.value) {
+                nodeToDelete = node;
+                break;
+            }
+
+            direction = value < node.value ? 'left' : 'right';
+            parentNode = node;
+            node = node[direction];
+        }
+
+        if (!nodeToDelete) {
+            return;
+        }
+
+        parentNode ??= this.root;
+
+        if (nodeToDelete.left && nodeToDelete.right) {
+            const minSuccessor = this.getMinSuccessor(nodeToDelete);
+            nodeToDelete.value = minSuccessor.node.value;
+            minSuccessor.delete();
+        } else if (nodeToDelete.left) {
+            parentNode[direction] = nodeToDelete.left;
+        } else if (nodeToDelete.right) {
+            parentNode[direction] = nodeToDelete.right;
+        } else {
+            parentNode[direction] = null;
+        }
+    }
+
+    getMinSuccessor(node = this.root) {
+        let parent = node;
+        let direction = 'right';
+        node = parent[direction];
+
+        while (node && node.left) {
+            parent = node;
+            direction = 'left';
+            node = node[direction];
+        }
+
+        return {
+            node,
+            delete: () => (parent[direction] = null),
+        };
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
