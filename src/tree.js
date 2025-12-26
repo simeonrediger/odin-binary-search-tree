@@ -66,30 +66,6 @@ export default class Tree {
         }
     }
 
-    #deleteNode(node, parent) {
-        const child = node.left ?? node.right ?? null;
-
-        if (!parent) {
-            this.root = child;
-        } else if (parent.left === node) {
-            parent.left = child;
-        } else {
-            parent.right = child;
-        }
-    }
-
-    #getMinSuccessor(node = this.root) {
-        let parent = node;
-        node = node.right ?? null;
-
-        while (node && node.left) {
-            parent = node;
-            node = node.left;
-        }
-
-        return { node, parent };
-    }
-
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
@@ -112,5 +88,29 @@ export default class Tree {
                 true,
             );
         }
+    }
+
+    #deleteNode(node, parent) {
+        const child = node.left ?? node.right ?? null;
+
+        if (!parent) {
+            this.root = child;
+        } else if (parent.left === node) {
+            parent.left = child;
+        } else {
+            parent.right = child;
+        }
+    }
+
+    #getMinSuccessor(node = this.root) {
+        let parent = node;
+        node = node.right ?? null;
+
+        while (node && node.left) {
+            parent = node;
+            node = node.left;
+        }
+
+        return { node, parent };
     }
 }
