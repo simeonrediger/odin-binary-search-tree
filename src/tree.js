@@ -100,6 +100,33 @@ export default class Tree {
         }
     }
 
+    levelOrderForEach(callback) {
+        if (callback == null) {
+            throw new TypeError('A callback function is required');
+        } else if (typeof callback !== 'function') {
+            throw new TypeError(
+                `Callback must be a function. Got ${typeof callback}`,
+            );
+        }
+
+        const queue = new Queue();
+        queue.enqueue(this.root);
+
+        while (queue.size !== 0) {
+            const node = queue.dequeue();
+
+            if (node.left) {
+                queue.enqueue(node.left);
+            }
+
+            if (node.right) {
+                queue.enqueue(node.right);
+            }
+
+            callback(node);
+        }
+    }
+
     #deleteNode(node, parent) {
         const child = node.left ?? node.right ?? null;
 
