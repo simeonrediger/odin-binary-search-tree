@@ -20,6 +20,30 @@ export default class Tree {
         );
     }
 
+    insert(value) {
+        let node = this.root;
+        let direction;
+        let lastNode;
+
+        while (node) {
+            if (value === node.value) {
+                return;
+            }
+
+            direction = value < node.value ? 'left' : 'right';
+            lastNode = node;
+            node = node[direction];
+        }
+
+        const insertedNode = new Node(value);
+
+        if (lastNode) {
+            lastNode[direction] = insertedNode;
+        } else {
+            this.root = insertedNode;
+        }
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
