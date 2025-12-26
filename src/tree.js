@@ -1,4 +1,4 @@
-import { mergeSort, prune } from './utils.js';
+import { mergeSort, prune, validateCallback } from './utils.js';
 import Node from './node.js';
 
 export default class Tree {
@@ -101,14 +101,7 @@ export default class Tree {
     }
 
     levelOrderForEach(callback) {
-        if (callback == null) {
-            throw new TypeError('A callback function is required');
-        } else if (typeof callback !== 'function') {
-            throw new TypeError(
-                `Callback must be a function. Got ${typeof callback}`,
-            );
-        }
-
+        validateCallback(callback);
         const queue = new Queue();
         queue.enqueue(this.root);
 

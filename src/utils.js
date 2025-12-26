@@ -26,6 +26,16 @@ export function prune(sortedArray) {
     return prunedArray;
 }
 
+export function validateCallback(callback) {
+    if (callback == null) {
+        throw new TypeError('A callback function is required');
+    } else if (typeof callback !== 'function') {
+        throw new TypeError(
+            `Callback must be a function. Got ${typeof callback}`,
+        );
+    }
+}
+
 function merge(left, right) {
     const mergedArray = [];
     let i = 0;
