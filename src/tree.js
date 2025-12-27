@@ -7,6 +7,10 @@ export default class Tree {
         this.root = this.build(prune(mergeSort(array)));
     }
 
+    get balanced() {
+        return this.isBalanced(this.root);
+    }
+
     build(sortedArray, start = 0, end = sortedArray.length) {
         if (start >= end) {
             return null;
