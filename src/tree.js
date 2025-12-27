@@ -1,6 +1,7 @@
 import { mergeSort, prune, validateCallback } from './utils.js';
 import Node from './node.js';
 import Queue from './queue.js';
+import Stack from './stack.js';
 
 export default class Tree {
     constructor(array) {
@@ -126,44 +127,14 @@ export default class Tree {
         this.#inOrderForEach(callback, node);
     }
 
-    #inOrderForEach(callback, node) {
-        if (!node) {
-            return;
-        }
-
-        this.#inOrderForEach(callback, node.left);
-        callback(node);
-        this.#inOrderForEach(callback, node.right);
-    }
-
     preOrderForEach(callback, node = this.root) {
         validateCallback(callback);
         this.#preOrderForEach(callback, node);
     }
 
-    #preOrderForEach(callback, node) {
-        if (!node) {
-            return;
-        }
-
-        callback(node);
-        this.#preOrderForEach(callback, node.left);
-        this.#preOrderForEach(callback, node.right);
-    }
-
     postOrderForEach(callback, node = this.root) {
         validateCallback(callback);
         this.#postOrderForEach(callback, node);
-    }
-
-    #postOrderForEach(callback, node) {
-        if (!node) {
-            return;
-        }
-
-        this.#postOrderForEach(callback, node.left);
-        this.#postOrderForEach(callback, node.right);
-        callback(node);
     }
 
     #deleteNode(node, parent) {
@@ -176,6 +147,35 @@ export default class Tree {
         } else {
             parent.right = child;
         }
+    }
+
+    #inOrderForEach(callback, node) {
+        if (!node) {
+            return;
+        }
+
+        this.#inOrderForEach(callback, node.left);
+        callback(node);
+        this.#inOrderForEach(callback, node.right);
+    }
+
+    #preOrderForEach(callback, node) {
+        if (!node) {
+            return;
+        }
+
+        callback(node);
+        this.#preOrderForEach(callback, node.left);
+        this.#preOrderForEach(callback, node.right);
+    }
+    #postOrderForEach(callback, node) {
+        if (!node) {
+            return;
+        }
+
+        this.#postOrderForEach(callback, node.left);
+        this.#postOrderForEach(callback, node.right);
+        callback(node);
     }
 
     #getMinSuccessor(node = this.root) {
