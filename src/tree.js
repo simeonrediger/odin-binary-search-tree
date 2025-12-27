@@ -88,6 +88,18 @@ export default class Tree {
         return this.#getNodeHeight(node);
     }
 
+    getDepth(value) {
+        let node = this.root;
+        let depth = 0;
+
+        while (node && node.value !== value) {
+            node = value < node.value ? node.left : node.right;
+            depth++;
+        }
+
+        return node ? depth : null;
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
