@@ -106,7 +106,7 @@ export default class Tree {
     }
 
     isBalanced(node = this.root) {
-        return this.#getBalanceInfo(node).balanced;
+        return this.#getBalancedHeightScore(node) > 0;
     }
 
     levelOrderForEach(callback) {
@@ -202,27 +202,27 @@ export default class Tree {
         );
     }
 
-    #getBalanceInfo(node) {
-        if (!node || (!node.left && !node.right)) {
-            return { balanced: true, height: 0 };
+    // If balanced, returns height
+    // Otherwise, returns -1
+    #getBalancedHeightScore(node) {
+        let height = 0;
+
+        if (node) {
+            height++;
+        } else {
+            return height;
         }
 
-        const left = this.#getBalanceInfo(node.left);
+        const leftHeight = this.#getBalancedHeightScore(node.left);
+        const rightHeight = this.#getBalancedHeightScore(node.right);
+        const heightDifference = Math.abs(leftHeight - rightHeight);
 
-        if (!left.balanced) {
-            return { balanced: false };
+        if (leftHeight === -1 || rightHeight === -1 || heightDifference > 1) {
+            return -1;
         }
 
-        const right = this.#getBalanceInfo(node.right);
-
-        if (!right.balanced) {
-            return { balanced: false };
-        }
-
-        return {
-            balanced: Math.abs(left.height - right.height) <= 1,
-            height: Math.max(left.height, right.height) + 1,
-        };
+        height += Math.max(leftHeight, rightHeight);
+        return height;
     }
 
     #inOrderForEach(callback, node) {
