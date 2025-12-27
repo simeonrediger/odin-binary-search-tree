@@ -78,6 +78,16 @@ export default class Tree {
         }
     }
 
+    getHeight(value = this.root?.value) {
+        const node = this.find(value);
+
+        if (!node) {
+            return null;
+        }
+
+        return this.#getNodeHeight(node);
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
@@ -147,6 +157,24 @@ export default class Tree {
         } else {
             parent.right = child;
         }
+    }
+
+    #getNodeHeight(node) {
+        let height = 0;
+
+        if (!node?.left && !node?.right) {
+            return height;
+        }
+
+        height++;
+
+        return (
+            height +
+            Math.max(
+                this.#getNodeHeight(node.left),
+                this.#getNodeHeight(node.right),
+            )
+        );
     }
 
     #inOrderForEach(callback, node) {
