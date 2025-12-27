@@ -136,6 +136,21 @@ export default class Tree {
         this.#inOrderForEach(callback, node.right);
     }
 
+    preOrderForEach(callback, node = this.root) {
+        validateCallback(callback);
+        this.#preOrderForEach(callback, node);
+    }
+
+    #preOrderForEach(callback, node) {
+        if (!node) {
+            return;
+        }
+
+        callback(node);
+        this.#preOrderForEach(callback, node.left);
+        this.#preOrderForEach(callback, node.right);
+    }
+
     #deleteNode(node, parent) {
         const child = node.left ?? node.right ?? null;
 
