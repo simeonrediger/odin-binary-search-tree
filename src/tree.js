@@ -248,6 +248,7 @@ export default class Tree {
         this.#preOrderForEach(callback, node.left);
         this.#preOrderForEach(callback, node.right);
     }
+
     #postOrderForEach(callback, node) {
         if (!node) {
             return;
