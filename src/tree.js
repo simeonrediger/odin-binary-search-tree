@@ -22,6 +22,12 @@ export default class Tree {
         );
     }
 
+    rebalance() {
+        const sortedArray = [];
+        this.inOrderForEach(node => sortedArray.push(node.value));
+        this.root = this.build(sortedArray);
+    }
+
     find(value) {
         let node = this.root;
 
