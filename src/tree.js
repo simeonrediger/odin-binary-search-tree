@@ -121,6 +121,21 @@ export default class Tree {
         }
     }
 
+    inOrderForEach(callback, node = this.root) {
+        validateCallback(callback);
+        this.#inOrderForEach(callback, node);
+    }
+
+    #inOrderForEach(callback, node) {
+        if (!node) {
+            return;
+        }
+
+        this.#inOrderForEach(callback, node.left);
+        callback(node);
+        this.#inOrderForEach(callback, node.right);
+    }
+
     #deleteNode(node, parent) {
         const child = node.left ?? node.right ?? null;
 
