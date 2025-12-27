@@ -109,30 +109,6 @@ export default class Tree {
         return this.#getBalanceInfo(node).isBalanced;
     }
 
-    prettyPrint(node = this.root, prefix = '', isLeft = true) {
-        if (node === null) {
-            return;
-        }
-
-        if (node.right !== null) {
-            this.prettyPrint(
-                node.right,
-                `${prefix}${isLeft ? '│   ' : '    '}`,
-                false,
-            );
-        }
-
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
-
-        if (node.left !== null) {
-            this.prettyPrint(
-                node.left,
-                `${prefix}${isLeft ? '    ' : '│   '}`,
-                true,
-            );
-        }
-    }
-
     levelOrderForEach(callback) {
         validateCallback(callback);
         const queue = new Queue();
@@ -166,6 +142,30 @@ export default class Tree {
     postOrderForEach(callback, node = this.root) {
         validateCallback(callback);
         this.#postOrderForEach(callback, node);
+    }
+
+    prettyPrint(node = this.root, prefix = '', isLeft = true) {
+        if (node === null) {
+            return;
+        }
+
+        if (node.right !== null) {
+            this.prettyPrint(
+                node.right,
+                `${prefix}${isLeft ? '│   ' : '    '}`,
+                false,
+            );
+        }
+
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.value}`);
+
+        if (node.left !== null) {
+            this.prettyPrint(
+                node.left,
+                `${prefix}${isLeft ? '    ' : '│   '}`,
+                true,
+            );
+        }
     }
 
     #deleteNode(node, parent) {
