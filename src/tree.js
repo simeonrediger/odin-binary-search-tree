@@ -218,10 +218,20 @@ export default class Tree {
         }
 
         const leftHeight = this.#getBalancedHeightScore(node.left);
+
+        if (leftHeight === -1) {
+            return -1;
+        }
+
         const rightHeight = this.#getBalancedHeightScore(node.right);
+
+        if (rightHeight === -1) {
+            return -1;
+        }
+
         const heightDifference = Math.abs(leftHeight - rightHeight);
 
-        if (leftHeight === -1 || rightHeight === -1 || heightDifference > 1) {
+        if (heightDifference > 1) {
             return -1;
         }
 
