@@ -203,8 +203,9 @@ export default class Tree {
     }
 
     #getBalanceInfo(node) {
-        if (!node || (!node.left && !node.right))
+        if (!node || (!node.left && !node.right)) {
             return { balanced: true, height: 0 };
+        }
 
         const left = this.#getBalanceInfo(node.left);
 
