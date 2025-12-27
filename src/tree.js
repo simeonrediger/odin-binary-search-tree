@@ -110,7 +110,7 @@ export default class Tree {
     }
 
     isBalanced(node = this.root) {
-        return this.#getBalancedHeightScore(node) > 0;
+        return this.#getBalancedHeight(node) > 0;
     }
 
     levelOrderForEach(callback) {
@@ -208,7 +208,7 @@ export default class Tree {
 
     // If balanced, returns height
     // Otherwise, returns -1
-    #getBalancedHeightScore(node) {
+    #getBalancedHeight(node) {
         let height = 0;
 
         if (node) {
@@ -217,13 +217,13 @@ export default class Tree {
             return height;
         }
 
-        const leftHeight = this.#getBalancedHeightScore(node.left);
+        const leftHeight = this.#getBalancedHeight(node.left);
 
         if (leftHeight === -1) {
             return -1;
         }
 
-        const rightHeight = this.#getBalancedHeightScore(node.right);
+        const rightHeight = this.#getBalancedHeight(node.right);
 
         if (rightHeight === -1) {
             return -1;
