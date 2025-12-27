@@ -146,6 +146,10 @@ export default class Tree {
 
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
+            if (this.root === null) {
+                console.log('<empty tree>');
+            }
+
             return;
         }
 
