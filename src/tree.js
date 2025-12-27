@@ -100,6 +100,33 @@ export default class Tree {
         return node ? depth : null;
     }
 
+    isBalanced(node = this.root) {
+        return this.#getBalanceInfo(node).isBalanced;
+    }
+
+    #getBalanceInfo(node) {
+        if (!node || (!node.left && !node.right)) {
+            return { isBalanced: true, height: 0 };
+        }
+
+        const left = this.#getBalanceInfo(node.left);
+
+        if (!left.isBalanced) {
+            return { isBalanced: false };
+        }
+
+        const right = this.#getBalanceInfo(node.right);
+
+        if (!right.isBalanced) {
+            return { isBalanced: false };
+        }
+
+        return {
+            isBalanced: Math.abs(left.height - right.height) <= 1,
+            height: Math.max(left.height, right.height) + 1,
+        };
+    }
+
     prettyPrint(node = this.root, prefix = '', isLeft = true) {
         if (node === null) {
             return;
