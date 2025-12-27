@@ -110,7 +110,7 @@ export default class Tree {
     }
 
     isBalanced(node = this.root) {
-        return this.#getBalancedHeight(node) > 0;
+        return this.#getBalancedHeight(node) >= 0;
     }
 
     levelOrderForEach(callback) {
