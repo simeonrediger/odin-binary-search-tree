@@ -37,6 +37,12 @@ export function mergeSort(array, start = 0, end = array.length) {
     return merge(left, right);
 }
 
+export function printNodeValues(forEach) {
+    let values = [];
+    forEach(node => values.push(node.value));
+    console.log(values);
+}
+
 export function prune(sortedArray) {
     const prunedArray = [];
 
