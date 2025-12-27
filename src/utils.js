@@ -1,3 +1,26 @@
+export function generateRandomIntegers(
+    numCountLower,
+    numCountUpper,
+    numValueLower,
+    numValueUpper,
+) {
+    const numCount =
+        numCountLower +
+        Math.floor((numCountUpper - numCountLower) * Math.random());
+
+    const nums = [];
+
+    for (let i = 0; i < numCount; i++) {
+        const num =
+            numValueLower +
+            Math.floor((numValueUpper - numValueLower) * Math.random());
+
+        nums.push(num);
+    }
+
+    return nums;
+}
+
 export function mergeSort(array, start = 0, end = array.length) {
     if (end - start === 0) {
         return [];

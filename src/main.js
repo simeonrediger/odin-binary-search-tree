@@ -1,5 +1,7 @@
+import { generateRandomIntegers } from './utils.js';
 import Tree from './tree.js';
 
-const nums = [23, 44, 61, 93, 36, 31, 77, 26, 12, 98, 74, 17, 51, 89, 52];
+const nums = generateRandomIntegers(0, 30, 1, 100);
+
 const tree = new Tree(nums);
 tree.prettyPrint();
